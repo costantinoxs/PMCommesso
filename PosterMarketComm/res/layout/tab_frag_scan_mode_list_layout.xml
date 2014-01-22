@@ -26,7 +26,7 @@
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7.4" >
+        android:layout_weight="6.9" >
     </ListView>
 
     <LinearLayout
@@ -51,22 +51,22 @@
         android:id="@+id/tvPriceDetail"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_weight="1.5" >
 
         <Button
-            android:id="@+id/btnAdd"
+            android:id="@+id/btnComplete"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             
-            android:text="@string/tBtnAdd" />
+            android:text="@string/tBtnComplete" />
 
         <Button
-            android:id="@+id/btnContinue"
+            android:id="@+id/btnScan"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/tBtnContinue" />
+            android:text="@string/tBtnScanCode" />
     </LinearLayout>
 
 </LinearLayout>

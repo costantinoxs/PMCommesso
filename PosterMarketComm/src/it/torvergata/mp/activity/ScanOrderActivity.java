@@ -93,7 +93,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 
-public class ScanningActivity extends Activity {
+public class ScanOrderActivity extends Activity {
 	
 	private Camera mCamera;
 	private CameraPreview mPreview;
@@ -201,11 +201,7 @@ public class ScanningActivity extends Activity {
                 }
                 else {
                 	Intent intent = new Intent(getBaseContext(), ListProductActivity.class);
-            		productList.setAssociateOrderId(7);
-            		ListProduct pippo= new ListProduct();
-            		pippo=productList;
-            		productList.print("Eccolaaaaaaaaaa");
-                	intent.putExtra("PRODUCTLIST",(Parcelable) productList);
+            		intent.putExtra("PRODUCTLIST",(Parcelable) productList);
             		
     				startActivity(intent);
     				finish();

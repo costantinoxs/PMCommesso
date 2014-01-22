@@ -31,8 +31,8 @@
     <string name="tMessageDeleteProd">Eliminazione </string>
     <string name="Euro">\u20ac</string>
     <string name="tvTotal">Totale:</string>
-    <string name="tBtnAdd">Aggiungi</string>
-    <string name="tBtnContinue">Prosegui</string>
+    <string name="tBtnComplete">Completa Ordine</string>
+    <string name="tBtnScanCode">Acquisizione Codice</string>
     <string name="title_activity_product_dectail">ProductDectailActivity</string>
     <string name="tDescription">Descrizione:</string>
     <string name="tPrice">Prezzo:</string>
@@ -44,6 +44,7 @@
     <string name="tRegistration">Re</string>
     <string name="title_activity_zbar">ZbarActivity</string>
     <string name="tScanQrCode">Scansionare i QrCode desiderati</string>
+    <string name="tScanSingleQrCode">Scansionare il codice desiderato</string>
     <string name="tFinishScan">Terminare\nacquisizione</string>
     <string name="tWarning">Attenzione</string>
     <string name="tTimeout">Timeout connessione</string>
@@ -68,5 +69,7 @@
     <string name="title_activity_scanning">ScanningActivity</string>
     <string name="title_activity_pre_scanning">PreScanningActivity</string>
     <string name="title_activity_list_product">ListProductActivity</string>
+    <string name="title_activity_scan_product_acitivty">ScanProductAcitivty</string>
+    <string name="title_activity_scan_single_product">ScanSingleProduct</string>
 
 </resources>

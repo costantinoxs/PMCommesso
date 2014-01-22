@@ -4,6 +4,7 @@ import it.torvergata.mp.R;
 import it.torvergata.mp.R.layout;
 import it.torvergata.mp.R.menu;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.app.Activity;
 import android.view.Menu;
 
@@ -52,11 +53,27 @@ public class ListProductActivity extends Activity {
 	private ProductAdapter adapter;
 	private Dialogs dialogs;
 	private Context ctx;
+	private ListView list;
 	@Override
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+			if (requestCode == 1) {
+				if (resultCode == 1) {
+					productList=data.getParcelableExtra("result");
+					Log.i("Boolean5",""+productList.get(0).isChecked());
+					adapter =new ProductAdapter(ctx,
+							R.layout.new_list_item, productList);
+					list.setAdapter(adapter);
+					
+				}
+			}
+		}
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ctx=this;
 		setContentView(R.layout.tab_frag_scan_mode_list_layout);
+		  
 		   productList=new ListProduct();
 		   Intent intent = getIntent();
 		   productList  = (ListProduct) intent.getParcelableExtra("PRODUCTLIST");
@@ -66,9 +83,10 @@ public class ListProductActivity extends Activity {
 	        
 	    	totalPrice 			= (TextView)  findViewById(R.id.tvTotalPrice);
 			
-	    	Button btnAdd 		= (Button)  findViewById(R.id.btnAdd);
-			Button btnContinue 	= (Button)  findViewById(R.id.btnContinue);
-			final ListView list = (ListView)  findViewById(id.list);
+	    	Button btnScanCode 		= (Button)  findViewById(R.id.btnScan);
+			Button btnCompleteOrder 	= (Button)  findViewById(R.id.btnComplete);
+			
+			list = (ListView)  findViewById(id.list);
 			list.setCacheColorHint(00000000);
 			
 			adapter =new ProductAdapter(ctx,
@@ -117,17 +135,20 @@ public class ListProductActivity extends Activity {
 				}
 			});
 			
-			btnAdd.setOnClickListener(new OnClickListener() {
+			btnScanCode.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					
+					Intent intent = new Intent(ctx, ScanSingleProduct.class);
+            		intent.putExtra("PRODUCTLIST",(Parcelable) productList);
+            		startActivityForResult(intent, 1);
+    				
 				}
 			});
 		
 			
-			btnContinue.setOnClickListener(new OnClickListener() {
+			btnCompleteOrder.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub

@@ -290,6 +290,7 @@ public class ListProduct extends ArrayList<Product> implements Parcelable{
 			dest.writeInt(this.get(i).getDisponibilita());
 			dest.writeString(this.get(i).getDescrizione());
 			dest.writeString(this.get(i).getFileImmagine());
+			dest.writeByte((byte) (this.get(i).isChecked() ? 1 : 0));
 			Log.i("ID",""+this.get(i).getId());
 			Log.i("Nome",""+this.get(i).getNome());
 			Log.i("Prezzo",""+this.get(i).getPrezzoUnitario());
@@ -344,6 +345,10 @@ public class ListProduct extends ArrayList<Product> implements Parcelable{
 		     temp.setFileImmagine(file);
 		     Log.i("file",file);
 		     
+		     boolean check = in.readByte() != 0;
+		     temp.setChecked(check);
+		     Log.i("check",""+check);
+		     
 		     
 		     //Bitmap bitmap = (Bitmap)in.readParcelable(getClass().getClassLoader());
 //		     immagine = new BitmapDrawable(bitmap);
@@ -361,6 +366,29 @@ public class ListProduct extends ArrayList<Product> implements Parcelable{
 	         return new ListProduct[size];
 	     }
 	 };
+
+	public Product searchById(String id) {
+		// TODO Auto-generated method stub
+		for(int i=0;i<this.size();i++){
+			if((this.get(i).getId().equals(id))){
+				return this.get(i);	
+			}
+		}
+		return null;
+	}
+
+	public void searchByIdAndChecked(String id) {
+		// TODO Auto-generated method stub
+		for(int i=0;i<this.size();i++){
+			if((this.get(i).getId().equals(id))){
+				Log.i("Prod checkid", ""+this.get(i).getId());
+				Log.i("Prod check1", ""+this.get(i).isChecked());
+				this.get(i).setChecked(true);
+				Log.i("Prod check2", ""+this.get(i).isChecked());
+				}
+			}
+			
+	}
 }
 	
 

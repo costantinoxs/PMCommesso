@@ -24,7 +24,7 @@ public class PreScanningActivity extends Activity {
 					@Override
 					public void onClick(View v) {
 						//Si lancia la transizione verso il tab di acquisizione
-						Intent intent = new Intent(getBaseContext(), ScanningActivity.class);
+						Intent intent = new Intent(getBaseContext(), ScanOrderActivity.class);
 						startActivity(intent);
 						finish();
 

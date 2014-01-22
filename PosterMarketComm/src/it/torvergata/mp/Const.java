@@ -21,12 +21,16 @@ public class Const {
 
 	public static final int OK = 1;
 	public static final int KO = 0;
+	public static final int KOLIST = 3;
 	public static final int TIMEOUT = 2;
+	public static final int OKMULTIPLE = 4;
 	public static final int CONNECTION_TIMEOUT = 10000;
 	public static final int SOCKET_TIMEOUT = 10000;
 	public static final String TIMEOUTS= "T";
 	//Numero di cifre in un id di un prodotto.
 	public static final int IDFORMAT = 6;
+	public static final int ID_PRODUCT_FORMAT = 13;
+	
 	//Nome del file per le Preferences
 	public static final String PREFS_NAME = "FilePreferences";
 

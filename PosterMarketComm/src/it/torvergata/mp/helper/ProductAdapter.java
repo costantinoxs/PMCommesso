@@ -41,6 +41,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ProductAdapter extends ArrayAdapter<Product> {
@@ -85,20 +86,20 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 		TextView tvDescription = (TextView)convertView.findViewById(R.id.description);
 		ImageView iv = (ImageView)convertView.findViewById(R.id.list_image);
 		TextView tvQuantitative = (TextView)convertView.findViewById(R.id.tvQuantitative);
-		
 		TextView tvPrice = (TextView)convertView.findViewById(R.id.price);
 		
 		tvTitle.setText(productList.get(position).getNome());
 		tvDescription.setText(productList.get(position).getDescrizione());
 		tvQuantitative.setText("Quantità:"+" "+productList.get(position).getQuantita());
 		
-		
-		
 		String price = GenericFunctions.currencyStamp(productList.get(position).getPrezzoTotale());
 		
+		if(productList.get(position).isChecked()){
+			convertView.setBackgroundColor(R.drawable.gradient_back);
+		}
 		
 		tvPrice.setText(price+" "+"\u20ac"+" ");
-				
+		
 		DrawableManager.fetchDrawableOnThread(productList.get(position), iv,context);
 		
 		//iv.setImageDrawable(drawab.fetchDrawable(Const.IMAGE_URL));
