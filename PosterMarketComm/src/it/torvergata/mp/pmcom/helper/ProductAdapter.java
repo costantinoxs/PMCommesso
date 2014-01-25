@@ -23,7 +23,7 @@ package it.torvergata.mp.pmcom.helper;
  * of this program.
  */
 
-import it.torvergata.mp.GenericFunctions;
+import it.torvergata.mp.pmcom.GenericFunctions;
 import it.torvergata.mp.pmcom.R;
 import it.torvergata.mp.pmcom.R.id;
 import it.torvergata.mp.pmcom.entity.ListProduct;

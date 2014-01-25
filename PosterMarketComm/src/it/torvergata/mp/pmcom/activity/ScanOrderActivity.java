@@ -33,8 +33,8 @@ import net.sourceforge.zbar.Image;
 import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
-import it.torvergata.mp.Const;
-import it.torvergata.mp.GenericFunctions;
+import it.torvergata.mp.pmcom.Const;
+import it.torvergata.mp.pmcom.GenericFunctions;
 import it.torvergata.mp.pmcom.R;
 import it.torvergata.mp.pmcom.R.id;
 import it.torvergata.mp.pmcom.R.layout;
@@ -98,10 +98,9 @@ public class ScanOrderActivity extends Activity {
 	private Camera mCamera;
 	private CameraPreview mPreview;
 	private Handler autoFocusHandler;
-	private RelativeLayout mRelativeLayoutLastProduct;
 	private	TextView scanText,tvTitle,tvDescription,tvQuantitative,tvPrice;
 	private ImageView iv;
-	private Button FinishScanButton, ContinueScanButton,encodeButton;
+	private Button ContinueScanButton;
 	private Context ctx;
 	
 	private Dialogs dialogs;
@@ -143,9 +142,7 @@ public class ScanOrderActivity extends Activity {
 		
 		scanText = (TextView) findViewById(R.id.scanText);
 		
-		mRelativeLayoutLastProduct= (RelativeLayout) findViewById(R.id.rlProductDetails);
 		
-		FinishScanButton = (Button) findViewById(R.id.FinishScanButton);
 		ContinueScanButton = (Button) findViewById(R.id.ContinueScanButton);
 		
 		
@@ -168,21 +165,7 @@ public class ScanOrderActivity extends Activity {
                 }
             }
         );
-		FinishScanButton.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-
-				previewing = false;
-				mCamera.setPreviewCallback(null);
-				mCamera.stopPreview();
-				FrameLayout preview = (FrameLayout) findViewById(R.id.cameraPreview);
-
-				if (preview.getChildCount() > 0) {
-					preview.removeAllViews();
-				}
-				
-				
-			}
-		});
+		
 
 		//Handler per il messaggio di risposta del Server, proveniente dal Thread.
 		handler = new Handler() {
@@ -201,7 +184,8 @@ public class ScanOrderActivity extends Activity {
                 }
                 else {
                 	Intent intent = new Intent(getBaseContext(), ListProductActivity.class);
-            		intent.putExtra("PRODUCTLIST",(Parcelable) productList);
+            		intent.putExtra("orderID", res);
+                	intent.putExtra("PRODUCTLIST",(Parcelable) productList);
             		
     				startActivity(intent);
     				finish();
@@ -212,8 +196,6 @@ public class ScanOrderActivity extends Activity {
 		};
 	}
 
-
-	
 	
 	public void onResume() {
 		super.onResume();
@@ -403,6 +385,15 @@ public class ScanOrderActivity extends Activity {
 					productList.add(tempProd);
 					productList.print("NEL FOR DI INSERIMENTO PROD i:"+i);
 				}
+				
+				//Invio notifica ordine: stato Preso in carico (2)
+				JSONObject jsonNot = new JSONObject();
+				jsonNot.put("idOrder", ""+orderId);
+				jsonNot.put("stato", "2");
+				JSONObject arrayNotif = connection.connect("inviaNotifiche", jsonNot, handler, Const.CONNECTION_TIMEOUT,Const.SOCKET_TIMEOUT);
+				
+				
+				
 					//Comunicazione al Thread principale del nome del prodotto
 					Message message = handler.obtainMessage(1, Integer.parseInt(orderId), 0);
 				

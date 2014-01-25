@@ -2,7 +2,7 @@ package it.torvergata.mp.pmcom.activity;
 
 
 
-import it.torvergata.mp.Const;
+import it.torvergata.mp.pmcom.Const;
 import it.torvergata.mp.pmcom.R;
 import it.torvergata.mp.pmcom.R.id;
 import it.torvergata.mp.pmcom.R.layout;
@@ -104,7 +104,6 @@ public class MainActivity extends Activity {
 		
 		edUsername 			= (EditText) findViewById(R.id.editTextUsername);
 		edPassword 			= (EditText) findViewById(R.id.editTextPassword);
-		tvRegistrazione 	= (TextView) findViewById(R.id.textViewRegistrazione);
 		bAccesso			= (Button) findViewById(R.id.buttonAccess);
 		
 		final ProgressDialog dialog = new ProgressDialog(MainActivity.this);

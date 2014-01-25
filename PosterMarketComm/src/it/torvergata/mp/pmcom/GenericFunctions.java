@@ -1,4 +1,4 @@
-package it.torvergata.mp;
+package it.torvergata.mp.pmcom;
 
 import java.io.BufferedReader;
 import java.io.IOException;

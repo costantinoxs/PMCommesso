@@ -33,8 +33,8 @@ import net.sourceforge.zbar.Image;
 import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
-import it.torvergata.mp.Const;
-import it.torvergata.mp.GenericFunctions;
+import it.torvergata.mp.pmcom.Const;
+import it.torvergata.mp.pmcom.GenericFunctions;
 import it.torvergata.mp.pmcom.R;
 import it.torvergata.mp.pmcom.R.id;
 import it.torvergata.mp.pmcom.R.layout;
@@ -98,10 +98,10 @@ public class ScanSingleProduct extends Activity {
 	private Camera mCamera;
 	private CameraPreview mPreview;
 	private Handler autoFocusHandler;
-	private RelativeLayout mRelativeLayoutLastProduct;
 	private	TextView scanText,tvTitle,tvDescription,tvQuantitative,tvPrice;
 	private ImageView iv;
 	private Context ctx;
+	private String nome;
 	private int qnt;
 	
 	private Dialogs dialogs;
@@ -146,7 +146,6 @@ public class ScanSingleProduct extends Activity {
 		
 		scanText = (TextView) findViewById(R.id.scanText);
 		Button ContinueScanButton = (Button) findViewById(R.id.ContinueScanButton);
-		mRelativeLayoutLastProduct= (RelativeLayout) findViewById(R.id.rlProductDetails);
 		
 		tvTitle 		= (TextView)findViewById(R.id.title);
 		tvDescription 	= (TextView)findViewById(R.id.description);
@@ -191,6 +190,8 @@ public class ScanSingleProduct extends Activity {
                 }
                 else if(res==Const.JUSTCHECKED){
                 	//Dialog KOLIST
+                	scanText.setText("Prodotto scansionato: "+nome);
+					
                 	AlertDialog alertDialog = new AlertDialog.Builder(ctx)
             		.setTitle(R.string.tWarning)
             		.setMessage("Prodotto già scansionato !")
@@ -210,6 +211,8 @@ public class ScanSingleProduct extends Activity {
             		alertDialog.show();
                 }
                 else if(res==Const.OKMULTIPLE){
+                	scanText.setText("Prodotto scansionato: "+nome);
+					
                 	//Dialog OKMULTIPLE
                 	AlertDialog alertDialog = new AlertDialog.Builder(ctx)
             		.setTitle(R.string.tWarning)
@@ -234,6 +237,8 @@ public class ScanSingleProduct extends Activity {
                 }
             	
                 else {
+                	scanText.setText("Prodotto scansionato: "+nome);
+					
                 	Intent returnIntent = new Intent();
                 	returnIntent.putExtra("result", (Parcelable) productList);
                 	setResult(1,returnIntent);
@@ -344,7 +349,6 @@ public class ScanSingleProduct extends Activity {
 							Log.d("ERR","Errore");
 							
 						}
-						scanText.setText("Id Ordine Scansionato: "+id);
 						barcodeScanned = true;
 						
 							
@@ -410,7 +414,7 @@ public class ScanSingleProduct extends Activity {
 					// Lettura dell'oggetto Json
 					String idProdotto = object.getString("idProdotto");
 					
-					String nome = object.getString("nome");
+					nome = object.getString("nome");
 					double prezzo = object.getDouble("prezzo");
 					String scadenza = object.getString("scadenza");
 					String disponibilita = object.getString("disponibilita");

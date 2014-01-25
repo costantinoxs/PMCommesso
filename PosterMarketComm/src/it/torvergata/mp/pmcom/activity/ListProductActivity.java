@@ -1,25 +1,35 @@
 package it.torvergata.mp.pmcom.activity;
 
-import it.torvergata.mp.Const;
-import it.torvergata.mp.GenericFunctions;
+import it.torvergata.mp.pmcom.Const;
+import it.torvergata.mp.pmcom.GenericFunctions;
 import it.torvergata.mp.pmcom.R;
 import it.torvergata.mp.pmcom.R.layout;
 import it.torvergata.mp.pmcom.R.menu;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Parcelable;
 import android.app.Activity;
 import android.view.Menu;
 
 import java.text.DecimalFormat;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+
+import it.torvergata.mp.pmcom.activity.ScanOrderActivity.LoadDataProduct;
 import it.torvergata.mp.pmcom.entity.ListProduct;
 import it.torvergata.mp.pmcom.entity.Product;
 import it.torvergata.mp.pmcom.helper.Dialogs;
+import it.torvergata.mp.pmcom.helper.HttpConnection;
 import it.torvergata.mp.pmcom.helper.ProductAdapter;
 import android.R.id;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -53,6 +63,8 @@ public class ListProductActivity extends Activity {
 	private Dialogs dialogs;
 	private Context ctx;
 	private ListView list;
+	private Handler handler;
+	private int orderID;
 	@Override
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -75,11 +87,11 @@ public class ListProductActivity extends Activity {
 		  
 		   productList=new ListProduct();
 		   Intent intent = getIntent();
+		   orderID=intent.getIntExtra("orderID", 1);
 		   productList  = (ListProduct) intent.getParcelableExtra("PRODUCTLIST");
 		   
 		   dialogs=new Dialogs();
-	        
-	        
+	         
 	    	totalPrice 			= (TextView)  findViewById(R.id.tvTotalPrice);
 			
 	    	Button btnScanCode 		= (Button)  findViewById(R.id.btnScan);
@@ -135,6 +147,46 @@ public class ListProductActivity extends Activity {
 				}
 			});
 			
+			//Handler per il messaggio di risposta del Server, proveniente dal Thread.
+			handler = new Handler() {
+	            @Override
+	            public void handleMessage(Message mess) {
+	            	
+	            	int res = mess.arg1;
+	               	
+	            	if(res==Const.KO){
+	            		
+	                }
+	            	
+	                else if(res==Const.TIMEOUT){
+	                	AlertDialog dialogBox = dialogs.ConnectionTimeout(ctx);
+	    				dialogBox.show();
+	                }
+	                else {
+	                	//Dialog ORDERCOMPLETE
+	                	AlertDialog alertDialog = new AlertDialog.Builder(ctx)
+	            		.setTitle(R.string.app_name)
+	            		.setMessage("Ordine completato con successo")
+	            		.setIcon(android.R.drawable.ic_dialog_info)//.setIcon(R.drawable.img_delete)
+	            		.setPositiveButton(R.string.tOk,
+	            				new DialogInterface.OnClickListener() {
+	            					public void onClick(DialogInterface dialog,
+	            							int whichButton) {
+	            						dialog.dismiss(); 
+	            						Intent returntoStartIntent = new Intent(ctx,PreScanningActivity.class);
+	            						startActivity(returntoStartIntent);
+	            						finish();
+	            					}
+	            				})
+	            		.create();
+	            		alertDialog.show();
+						
+	                }
+	                }
+	                
+	            
+			};
+			
 			btnScanCode.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -152,7 +204,15 @@ public class ListProductActivity extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					
+						if(!productList.areAllChecked()){
+							//Dialog
+							AlertDialog dialogBox = dialogs.GenericErrorDialog(ctx, "Mancano alcuni prodotti dell'ordine");
+							dialogBox.show();
+						}else{
+							//Lancio dell'AsyncTask Thread che effettua l'invio della notifica
+							sendNotification task = new sendNotification();
+							task.execute(""+orderID);
+						}
 				}
 			});
 			
@@ -171,5 +231,44 @@ public class ListProductActivity extends Activity {
 		totalPrice.setText(getString(R.string.tvTotal)+" "+price+" "+getString(R.string.Euro));
 		
 	}
+	public class sendNotification extends AsyncTask<String, Void, Void> {
+		
+		@Override
+		protected void onPreExecute() {
+		};
+
+		@Override
+		protected void onPostExecute(Void result) {
+		}
+
+		@Override
+		protected Void doInBackground(String... params) {
+			String orderId = params[0];
+			
+				try {
+				HttpConnection connection = new HttpConnection();
+			
+				//Invio notifica ordine: stato Preso in carico (2)
+				JSONObject jsonNot = new JSONObject();
+				jsonNot.put("idOrder", ""+orderId);
+				jsonNot.put("stato", "3");
+				JSONObject arrayNotif = connection.connect("inviaNotifiche", jsonNot, handler, Const.CONNECTION_TIMEOUT,Const.SOCKET_TIMEOUT);
+								
+				//Comunicazione al Thread principale del nome del prodotto
+				Message message = handler.obtainMessage(1, Integer.parseInt(orderId), 0);
+				
+				handler.sendMessage(message);
+				
+				
+			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (Exception e) {
+				Log.e("log_tag", "Error in http connection: " + e.toString());
+			}
+
+			return null;
+		};
+	}
+	
 }
 

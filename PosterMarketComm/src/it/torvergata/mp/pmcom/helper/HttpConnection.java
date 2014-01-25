@@ -1,7 +1,7 @@
 package it.torvergata.mp.pmcom.helper;
 
-import it.torvergata.mp.Const;
-import it.torvergata.mp.GenericFunctions;
+import it.torvergata.mp.pmcom.Const;
+import it.torvergata.mp.pmcom.GenericFunctions;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;

@@ -1,6 +1,6 @@
 package it.torvergata.mp.pmcom.activity;
 
-import it.torvergata.mp.GenericFunctions;
+import it.torvergata.mp.pmcom.GenericFunctions;
 import it.torvergata.mp.pmcom.R;
 import it.torvergata.mp.pmcom.R.layout;
 import it.torvergata.mp.pmcom.R.menu;

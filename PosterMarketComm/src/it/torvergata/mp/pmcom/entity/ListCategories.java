@@ -1,7 +1,7 @@
 package it.torvergata.mp.pmcom.entity;
 
 
-import it.torvergata.mp.GenericFunctions;
+import it.torvergata.mp.pmcom.GenericFunctions;
 import it.torvergata.mp.pmcom.R;
 import it.torvergata.mp.pmcom.crypto.CryptoSha256;
 

@@ -1,7 +1,7 @@
 package it.torvergata.mp.pmcom.entity;
 
 
-import it.torvergata.mp.GenericFunctions;
+import it.torvergata.mp.pmcom.GenericFunctions;
 import it.torvergata.mp.pmcom.R;
 import it.torvergata.mp.pmcom.crypto.CryptoSha256;
 
@@ -391,6 +391,16 @@ public class ListProduct extends ArrayList<Product> implements Parcelable{
 		}
 		return r;
 	}
+
+	public boolean areAllChecked() {
+		// TODO Auto-generated method stub
+		for(int i=0;i<this.size();i++){
+			if(!this.get(i).isChecked())
+				return false;
+			}
+		return true;
+	}
+	
 
 	
 }

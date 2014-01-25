@@ -20,7 +20,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 */
-import it.torvergata.mp.Const;
+import it.torvergata.mp.pmcom.Const;
 import it.torvergata.mp.pmcom.R;
 import it.torvergata.mp.pmcom.entity.Product;
 

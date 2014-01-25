@@ -1,6 +1,6 @@
 package it.torvergata.mp.pmcom.helper;
 
-import it.torvergata.mp.Const;
+import it.torvergata.mp.pmcom.Const;
 import it.torvergata.mp.pmcom.R;
 import it.torvergata.mp.pmcom.entity.ListProduct;
 import it.torvergata.mp.pmcom.entity.Product;
