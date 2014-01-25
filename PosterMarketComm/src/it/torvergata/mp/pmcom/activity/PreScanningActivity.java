@@ -19,12 +19,26 @@ public class PreScanningActivity extends Activity {
 		//Associazione del layout
 				setContentView(R.layout.tab_frag1_layout);
 
-				Button mButton = (Button) findViewById(R.id.btnQrCode);
-				mButton.setOnClickListener(new OnClickListener() {
+				Button btnOrder = (Button) findViewById(R.id.btnPreparation);
+				Button btnDelivery = (Button) findViewById(R.id.btnDelivery);
+	
+				btnOrder.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						//Si lancia la transizione verso il tab di acquisizione
 						Intent intent = new Intent(getBaseContext(), ScanOrderActivity.class);
+						intent.putExtra("choice", 1);
+						startActivity(intent);
+						finish();
+
+					}
+				});
+				btnDelivery.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						//Si lancia la transizione verso il tab di acquisizione
+						Intent intent = new Intent(getBaseContext(), ScanOrderActivity.class);
+						intent.putExtra("choice", 2);
 						startActivity(intent);
 						finish();
 

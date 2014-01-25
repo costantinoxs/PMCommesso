@@ -43,6 +43,7 @@ import it.torvergata.mp.pmcom.R.layout;
 
 import it.torvergata.mp.pmcom.activity.MainActivity;
 import it.torvergata.mp.pmcom.activity.MainActivity.LoadData;
+import it.torvergata.mp.pmcom.entity.Customer;
 import it.torvergata.mp.pmcom.entity.ListProduct;
 import it.torvergata.mp.pmcom.entity.Product;
 import it.torvergata.mp.pmcom.helper.CameraPreview;
@@ -102,6 +103,8 @@ public class ScanOrderActivity extends Activity {
 	private ImageView iv;
 	private Button ContinueScanButton;
 	private Context ctx;
+	private int choice;
+	private Customer customer;
 	
 	private Dialogs dialogs;
 
@@ -125,6 +128,10 @@ public class ScanOrderActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_zbar);
 		ctx=this;
+		
+		Intent intent = getIntent();
+		choice=intent.getIntExtra("choice", 1);
+		
 		
 		
 		autoFocusHandler = new Handler();
@@ -183,12 +190,21 @@ public class ScanOrderActivity extends Activity {
     				dialogBox.show();
                 }
                 else {
+                	if(choice==1){
                 	Intent intent = new Intent(getBaseContext(), ListProductActivity.class);
             		intent.putExtra("orderID", res);
                 	intent.putExtra("PRODUCTLIST",(Parcelable) productList);
-            		
-    				startActivity(intent);
+            		startActivity(intent);
     				finish();
+                	}
+                	else{
+                	  	Intent intent = new Intent(getBaseContext(), ListProductForDeliveryActivity.class);
+                		intent.putExtra("orderID", res);
+                		intent.putExtra("CUSTOMER",(Parcelable) customer);
+                    	intent.putExtra("PRODUCTLIST",(Parcelable) productList);
+                		startActivity(intent);
+        				finish();
+                	}
                 }
                 }
                 
@@ -349,7 +365,7 @@ public class ScanOrderActivity extends Activity {
 				
 				productList=new ListProduct();	
 				
-				for(int i=0;i<arrayObject.length();i++){
+				for(int i=0;i<arrayObject.length()-1;i++){
 					JSONObject object = (JSONObject) arrayObject.getJSONObject(i);
 					// Lettura dell'oggetto Json
 					String idProdotto = object.getString("idProdotto");
@@ -385,13 +401,37 @@ public class ScanOrderActivity extends Activity {
 					productList.add(tempProd);
 					productList.print("NEL FOR DI INSERIMENTO PROD i:"+i);
 				}
+				if(choice==2){
+					JSONObject object = (JSONObject) arrayObject.getJSONObject(arrayObject.length()-1);
+					String idCustomer 	 = object.getString("idCliente");
+					String name 		 = object.getString("nomeCliente");
+					String surname		 = object.getString("cognomeCliente");
+					String user			 = object.getString("userCliente");
+					String email		 = object.getString("emailCliente");
+					
+					Log.i("Cliente : id: ", idCustomer);
+					Log.i("Cliente : nome: ", name);
+					Log.i("Cliente : cognome: ", surname);
+					Log.i("Cliente : user: ", user);
+					Log.i("Cliente : email: ", email);
+					
+					// Creazione del Cliente
+					customer = new Customer(idCustomer);
+					customer.setName(name);
+					customer.setSurname(surname);
+					customer.setUser(user);
+					customer.setEmail(email);
+					
+				}
 				
+				
+				if(choice==1){
 				//Invio notifica ordine: stato Preso in carico (2)
 				JSONObject jsonNot = new JSONObject();
 				jsonNot.put("idOrder", ""+orderId);
 				jsonNot.put("stato", "2");
 				JSONObject arrayNotif = connection.connect("inviaNotifiche", jsonNot, handler, Const.CONNECTION_TIMEOUT,Const.SOCKET_TIMEOUT);
-				
+				}
 				
 				
 					//Comunicazione al Thread principale del nome del prodotto

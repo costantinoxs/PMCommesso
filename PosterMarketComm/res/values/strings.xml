@@ -20,6 +20,11 @@
     <string name="title_tab1">Acquisizione QrCode</string>
     <string name="title_activity_camera">CameraActivity</string>
     <string name="tvProductID">Prodotti:</string>
+    <string name="tvCustomer">Cliente:</string>
+    <string name="tvName">Nome:</string>
+    <string name="tvSurname">Cognome:</string>
+    <string name="tvUserN">Username:</string>
+    <string name="tvEmail">Email:</string>
     <string name="tvOrderState">Stato Ordine: </string>
     <string name="tvOrders">Ordini:</string>
     <string name="tvMacrocategories">Reparto:</string>
@@ -32,6 +37,7 @@
     <string name="Euro">\u20ac</string>
     <string name="tvTotal">Totale:</string>
     <string name="tBtnComplete">Completa Ordine</string>
+    <string name="tBtnDelivered">Ordine Ritirato</string>
     <string name="tBtnScanCode">Acquisizione Codice</string>
     <string name="title_activity_product_dectail">ProductDectailActivity</string>
     <string name="tDescription">Descrizione:</string>
@@ -65,6 +71,8 @@
     <string name="tOrderSendWrong">Invio ordine non riuscito</string>
     <string name="tSendingOrger">Invio Ordine...</string>
     <string name="tSendOrder">Invia ordine</string>
+    <string name="tPrepareOrder">Preparazione ordine</string>
+    <string name="tOrderDelivery">Consegna ordine</string>
     <string name="tUpdateOrderState">Aggiornamento stato ordine</string>
     <string name="title_activity_scanning">ScanningActivity</string>
     <string name="title_activity_pre_scanning">PreScanningActivity</string>
@@ -72,5 +80,6 @@
     <string name="title_activity_scan_product_acitivty">ScanProductAcitivty</string>
     <string name="title_activity_scan_single_product">ScanSingleProduct</string>
     <string name="title_activity_product_detail">ProductDetailActivity</string>
+    <string name="title_activity_list_product_for_delivery">ListProductForDeliveryActivity</string>
 
 </resources>
