@@ -1,5 +1,5 @@
 package it.torvergata.mp.pmcom.activity;
-
+//MA
 
 
 import it.torvergata.mp.pmcom.Const;
