@@ -1,16 +1,16 @@
-package it.torvergata.mp.activity;
+package it.torvergata.mp.pmcom.activity;
+
 
 
 import it.torvergata.mp.Const;
+import it.torvergata.mp.pmcom.R;
+import it.torvergata.mp.pmcom.R.id;
+import it.torvergata.mp.pmcom.R.layout;
+import it.torvergata.mp.pmcom.R.menu;
 
-import it.torvergata.mp.R;
-import it.torvergata.mp.R.id;
-import it.torvergata.mp.R.layout;
-import it.torvergata.mp.R.menu;
-
-import it.torvergata.mp.crypto.CryptoSha256;
-import it.torvergata.mp.helper.Dialogs;
-import it.torvergata.mp.helper.HttpConnection;
+import it.torvergata.mp.pmcom.crypto.CryptoSha256;
+import it.torvergata.mp.pmcom.helper.Dialogs;
+import it.torvergata.mp.pmcom.helper.HttpConnection;
 
 import java.io.BufferedReader;
 import java.io.IOException;

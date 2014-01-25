@@ -3,7 +3,7 @@
  * 
  * Created by lisah0 on 2012-02-24
  */
-package it.torvergata.mp.helper;
+package it.torvergata.mp.pmcom.helper;
 
 import java.io.IOException;
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="it.torvergata.mp"
+    package="it.torvergata.mp.pmcom"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -28,24 +28,26 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity android:name="it.torvergata.mp.activity.MainActivity" >
+        <activity android:name="it.torvergata.mp.pmcom.activity.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="it.torvergata.mp.activity.ScanOrderActivity" >
+        <activity android:name="it.torvergata.mp.pmcom.activity.ScanOrderActivity" >
         </activity>
-        <activity android:name="it.torvergata.mp.activity.PreScanningActivity" >
+        <activity android:name="it.torvergata.mp.pmcom.activity.PreScanningActivity" >
         </activity>
-        <activity android:name="it.torvergata.mp.activity.ListProductActivity" >
+        <activity android:name="it.torvergata.mp.pmcom.activity.ListProductActivity" >
         </activity>
-        <activity android:name="it.torvergata.mp.activity.ScanProductAcitivty" >
+        <activity android:name="it.torvergata.mp.pmcom.activity.ScanProductAcitivty" >
+        </activity>
+        <activity android:name="it.torvergata.mp.pmcom.activity.ScanSingleProduct" >
         </activity>
         <activity
-            android:name="it.torvergata.mp.activity.ScanSingleProduct"
-             >
+            android:name="it.torvergata.mp.pmcom.activity.ProductDetailActivity"
+            android:label="@string/title_activity_product_detail" >
         </activity>
     </application>
 

@@ -1,9 +1,9 @@
-package it.torvergata.mp.helper;
+package it.torvergata.mp.pmcom.helper;
 
 import it.torvergata.mp.Const;
-import it.torvergata.mp.R;
-import it.torvergata.mp.entity.ListProduct;
-import it.torvergata.mp.entity.Product;
+import it.torvergata.mp.pmcom.R;
+import it.torvergata.mp.pmcom.entity.ListProduct;
+import it.torvergata.mp.pmcom.entity.Product;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -34,7 +34,7 @@ public class Dialogs {
 		return alertDialog;
 	}
 	
-	public AlertDialog DeleteDialog(final int position,ListProduct productList,Context ctx) {
+	public AlertDialog SelectDialog(final int position,ListProduct productList,Context ctx) {
 		Product prod = productList.get(position);
 		AlertDialog alertDialog = new AlertDialog.Builder(ctx)
 				.setTitle(prod.getNome())
@@ -107,5 +107,21 @@ public class Dialogs {
 				.create();
 		return alertDialog;
 	}
-	
-}
+	public AlertDialog GenericErrorDialog(Context ctx, String string) {
+		AlertDialog alertDialog = new AlertDialog.Builder(ctx)
+		.setTitle(R.string.tWarning)
+		.setMessage(string)
+		.setIcon(android.R.drawable.ic_dialog_alert)//.setIcon(R.drawable.img_delete)
+		.setPositiveButton(R.string.tOk,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+							int whichButton) {
+						dialog.dismiss(); 
+						
+					}
+				})
+		.create();
+		return alertDialog;
+		
+	}
+}	

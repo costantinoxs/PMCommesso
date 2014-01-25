@@ -1,8 +1,10 @@
-package it.torvergata.mp.activity;
+package it.torvergata.mp.pmcom.activity;
 
-import it.torvergata.mp.R;
-import it.torvergata.mp.R.layout;
-import it.torvergata.mp.R.menu;
+import it.torvergata.mp.Const;
+import it.torvergata.mp.GenericFunctions;
+import it.torvergata.mp.pmcom.R;
+import it.torvergata.mp.pmcom.R.layout;
+import it.torvergata.mp.pmcom.R.menu;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.app.Activity;
@@ -10,14 +12,11 @@ import android.view.Menu;
 
 import java.text.DecimalFormat;
 
-import it.torvergata.mp.Const;
-import it.torvergata.mp.GenericFunctions;
-import it.torvergata.mp.R;
-import it.torvergata.mp.R.layout;
-import it.torvergata.mp.entity.ListProduct;
-import it.torvergata.mp.entity.Product;
-import it.torvergata.mp.helper.Dialogs;
-import it.torvergata.mp.helper.ProductAdapter;
+
+import it.torvergata.mp.pmcom.entity.ListProduct;
+import it.torvergata.mp.pmcom.entity.Product;
+import it.torvergata.mp.pmcom.helper.Dialogs;
+import it.torvergata.mp.pmcom.helper.ProductAdapter;
 import android.R.id;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -97,12 +96,11 @@ public class ListProductActivity extends Activity {
 			
 			list.setOnItemLongClickListener(new OnItemLongClickListener() {
 
-
 				@Override
 				public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 						final int arg2, long arg3) {
 					
-					final AlertDialog dialogBox = dialogs.DeleteDialog(arg2,productList,ctx);
+					final AlertDialog dialogBox = dialogs.SelectDialog(arg2,productList,ctx);
 					dialogBox.show();
 					Button deleteButton = dialogBox
 							.getButton(DialogInterface.BUTTON_POSITIVE);
@@ -111,7 +109,7 @@ public class ListProductActivity extends Activity {
 						public void onClick(View v) {
 							try{
 							
-							productList.remove(arg2);
+							productList.get(arg2).setChecked(true);
 							adapter.notifyDataSetChanged();
 							setTotalPrice();
 							}catch (IndexOutOfBoundsException e){
@@ -130,7 +128,9 @@ public class ListProductActivity extends Activity {
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 						long arg3) {
-					// TODO Auto-generated method stub
+					Intent intent = new Intent(ctx, ProductDetailActivity.class);
+            		intent.putExtra("PRODUCT",(Parcelable) productList.get(arg2));
+            		startActivity(intent);
 					
 				}
 			});

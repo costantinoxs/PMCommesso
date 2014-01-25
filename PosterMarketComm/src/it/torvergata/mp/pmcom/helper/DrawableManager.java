@@ -1,6 +1,6 @@
 
 
-package it.torvergata.mp.helper;
+package it.torvergata.mp.pmcom.helper;
 
 /*
  Licensed to the Apache Software Foundation (ASF) under one
@@ -21,8 +21,8 @@ specific language governing permissions and limitations
 under the License.
 */
 import it.torvergata.mp.Const;
-import it.torvergata.mp.R;
-import it.torvergata.mp.entity.Product;
+import it.torvergata.mp.pmcom.R;
+import it.torvergata.mp.pmcom.entity.Product;
 
 import java.io.IOException;
 import java.io.InputStream;

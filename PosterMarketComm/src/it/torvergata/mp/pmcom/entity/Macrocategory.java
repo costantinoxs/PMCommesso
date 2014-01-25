@@ -1,11 +1,11 @@
-package it.torvergata.mp.entity;
+package it.torvergata.mp.pmcom.entity;
 
-public class Category {
+public class Macrocategory {
 		private int id;
 		private String name;
 		
 		
-		public Category(int i,String n){
+		public Macrocategory(int i,String n){
 			id=i;
 			name=n;	
 		}

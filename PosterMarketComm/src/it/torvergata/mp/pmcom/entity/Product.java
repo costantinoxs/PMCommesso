@@ -1,4 +1,4 @@
-package it.torvergata.mp.entity;
+package it.torvergata.mp.pmcom.entity;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -7,7 +7,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-public class Product implements Parcelable{
+public class Product implements Parcelable {
 	private String id;
 	private int quantita;
 	private String nome;
@@ -17,36 +17,33 @@ public class Product implements Parcelable{
 	private String descrizione;
 	private String fileImmagine;
 	private boolean isChecked;
-	
-	int III=0;
-	
+
+	int III = 0;
+
 	public String getFileImmagine() {
 		return fileImmagine;
 	}
 	private Drawable immagine;
-	
-	
 
-	public Product(String i){
-		id=i;
+	public Product(String i) {
+		id = i;
 		setQuantita(1);
-		nome="";
-		prezzoUnitario=0.0;
-		
-		scadenza="";
-		disponibilita=0;
-		descrizione="";
-		fileImmagine="";
-		immagine= null;
+		nome = "";
+		prezzoUnitario = 0.0;
+
+		scadenza = "";
+		disponibilita = 0;
+		descrizione = "";
+		fileImmagine = "";
+		immagine = null;
 		setChecked(false);
 	}
-	
-	
-	public void increment(){
-	
+
+	public void increment() {
+
 		quantita++;
 	}
-	public void decrement(){
+	public void decrement() {
 		quantita--;
 	}
 
@@ -66,51 +63,50 @@ public class Product implements Parcelable{
 		dest.writeString(scadenza);
 		dest.writeInt(disponibilita);
 		dest.writeString(descrizione);
-		dest.writeString(fileImmagine);		 
-//		Bitmap bitmap = (Bitmap)((BitmapDrawable) this.immagine).getBitmap();
-//		dest.writeParcelable(bitmap, flags);
-		
+		dest.writeString(fileImmagine);
+		Bitmap bitmap = (Bitmap) ((BitmapDrawable) this.immagine).getBitmap();
+		dest.writeParcelable(bitmap, flags);
+
 	}
-	 private Product(Parcel in) {
-	     id = in.readString();
-	     nome=in.readString();
-	     prezzoUnitario=in.readDouble();
-	     quantita=in.readInt();
-	     scadenza=in.readString();
-	     disponibilita=in.readInt();
-	     descrizione=in.readString();
-	     fileImmagine=in.readString();
-//	     Bitmap bitmap = (Bitmap)in.readParcelable(getClass().getClassLoader());
-//	     immagine = new BitmapDrawable(bitmap);
-//	     
-	 }
-	 public Product clone() {
-		 	Product r = new Product(this.getId());
-			r.setQuantita(this.getQuantita());
-			r.setNome(this.getNome());
-			r.setPrezzoUnitario(this.getPrezzoUnitario());
-			r.setScadenza(this.getScadenza());
-			r.setDisponibilita(this.getDisponibilita());
-			r.setDescrizione(this.getDescrizione());
-			r.setFileImmagine(this.getFileImmagine());
-			r.setImmagine(this.getImmagine());
-			r.setChecked(this.isChecked());
-			
-			return r;
+	private Product(Parcel in) {
+		id = in.readString();
+		nome = in.readString();
+		prezzoUnitario = in.readDouble();
+		quantita = in.readInt();
+		scadenza = in.readString();
+		disponibilita = in.readInt();
+		descrizione = in.readString();
+		fileImmagine = in.readString();
+
+		Bitmap bitmap = (Bitmap) in.readParcelable(getClass().getClassLoader());
+		immagine = new BitmapDrawable(bitmap);
+
+	}
+	public Product clone() {
+		Product r = new Product(this.getId());
+		r.setQuantita(this.getQuantita());
+		r.setNome(this.getNome());
+		r.setPrezzoUnitario(this.getPrezzoUnitario());
+		r.setScadenza(this.getScadenza());
+		r.setDisponibilita(this.getDisponibilita());
+		r.setDescrizione(this.getDescrizione());
+		r.setFileImmagine(this.getFileImmagine());
+		r.setImmagine(this.getImmagine());
+		r.setChecked(this.isChecked());
+
+		return r;
 	}
 	public static final Parcelable.Creator<Product> CREATOR = new Parcelable.Creator<Product>() {
-	     public Product createFromParcel(Parcel in) {
-	         return new Product(in);
-	     }
+		public Product createFromParcel(Parcel in) {
+			return new Product(in);
+		}
 
-	     public Product[] newArray(int size) {
-	         return new Product[size];
-	     }
-	 };
+		public Product[] newArray(int size) {
+			return new Product[size];
+		}
+	};
 
-	
-	
-	//Metodi Get
+	// Metodi Get
 	public Drawable getImmagine() {
 		return immagine;
 	}
@@ -118,11 +114,11 @@ public class Product implements Parcelable{
 	public String getNome() {
 		return nome;
 	}
-	
+
 	public double getPrezzoUnitario() {
 		return prezzoUnitario;
 	}
-	
+
 	public String getScadenza() {
 		return scadenza;
 	}
@@ -130,7 +126,7 @@ public class Product implements Parcelable{
 	public int getDisponibilita() {
 		return disponibilita;
 	}
-	
+
 	public String getDescrizione() {
 		return descrizione;
 	}
@@ -139,29 +135,28 @@ public class Product implements Parcelable{
 		return id;
 	}
 	public double getPrezzoTotale() {
-		return prezzoUnitario*quantita;
+		return prezzoUnitario * quantita;
 	}
-	 public int getQuantita() {
+	public int getQuantita() {
 		return quantita;
 	}
 
-	
-	//Metodi Set
+	// Metodi Set
 	public void setImmagine(Drawable immagine) {
 		this.immagine = immagine;
 	}
-	
+
 	public void setFileImmagine(String file_immagine) {
 		this.fileImmagine = file_immagine;
 	}
-	
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 	public void setPrezzoUnitario(double prezzo) {
 		this.prezzoUnitario = prezzo;
 	}
-	
+
 	public void setScadenza(String scadenza) {
 		this.scadenza = scadenza;
 	}
@@ -182,15 +177,12 @@ public class Product implements Parcelable{
 		this.quantita = quantita;
 	}
 
-
 	public boolean isChecked() {
 		return isChecked;
 	}
 
-
 	public void setChecked(boolean isChecked) {
 		this.isChecked = isChecked;
 	}
-	
-	
+
 }

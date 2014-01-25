@@ -1,8 +1,8 @@
-package it.torvergata.mp.activity;
+package it.torvergata.mp.pmcom.activity;
 
-import it.torvergata.mp.R;
-import it.torvergata.mp.R.layout;
-import it.torvergata.mp.R.menu;
+import it.torvergata.mp.pmcom.R;
+import it.torvergata.mp.pmcom.R.layout;
+import it.torvergata.mp.pmcom.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;

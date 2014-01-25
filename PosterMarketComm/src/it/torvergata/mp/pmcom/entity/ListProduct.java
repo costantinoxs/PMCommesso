@@ -1,9 +1,9 @@
-package it.torvergata.mp.entity;
+package it.torvergata.mp.pmcom.entity;
 
 
 import it.torvergata.mp.GenericFunctions;
-import it.torvergata.mp.R;
-import it.torvergata.mp.crypto.CryptoSha256;
+import it.torvergata.mp.pmcom.R;
+import it.torvergata.mp.pmcom.crypto.CryptoSha256;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
@@ -377,18 +377,22 @@ public class ListProduct extends ArrayList<Product> implements Parcelable{
 		return null;
 	}
 
-	public void searchByIdAndChecked(String id) {
+	public int searchByIdAndChecked(String id) {
 		// TODO Auto-generated method stub
+		int r=0;
 		for(int i=0;i<this.size();i++){
 			if((this.get(i).getId().equals(id))){
 				Log.i("Prod checkid", ""+this.get(i).getId());
 				Log.i("Prod check1", ""+this.get(i).isChecked());
+				if(this.get(i).isChecked())r=1;
 				this.get(i).setChecked(true);
 				Log.i("Prod check2", ""+this.get(i).isChecked());
-				}
 			}
-			
+		}
+		return r;
 	}
+
+	
 }
 	
 

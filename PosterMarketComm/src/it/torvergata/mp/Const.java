@@ -24,6 +24,7 @@ public class Const {
 	public static final int KOLIST = 3;
 	public static final int TIMEOUT = 2;
 	public static final int OKMULTIPLE = 4;
+	public static final int JUSTCHECKED = 5;
 	public static final int CONNECTION_TIMEOUT = 10000;
 	public static final int SOCKET_TIMEOUT = 10000;
 	public static final String TIMEOUTS= "T";

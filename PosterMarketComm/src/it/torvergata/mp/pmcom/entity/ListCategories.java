@@ -1,9 +1,9 @@
-package it.torvergata.mp.entity;
+package it.torvergata.mp.pmcom.entity;
 
 
 import it.torvergata.mp.GenericFunctions;
-import it.torvergata.mp.R;
-import it.torvergata.mp.crypto.CryptoSha256;
+import it.torvergata.mp.pmcom.R;
+import it.torvergata.mp.pmcom.crypto.CryptoSha256;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
@@ -18,10 +18,10 @@ import org.json.JSONObject;
 import android.util.Log;
 import android.widget.TextView;
 
-public class ListMacrocategories extends ArrayList<Macrocategory> {
+public class ListCategories extends ArrayList<Category> {
 	int count;
 
-	public ListMacrocategories(){
+	public ListCategories(){
 		super();
 		count=0;
 		
@@ -32,7 +32,7 @@ public class ListMacrocategories extends ArrayList<Macrocategory> {
 	}
 
 
-	public boolean add(Macrocategory m){
+	public boolean add(Category m){
 		super.add(m);
 		count++;
 	
@@ -40,12 +40,12 @@ public class ListMacrocategories extends ArrayList<Macrocategory> {
 		
 	}
 	
-	public Macrocategory get(int position){
+	public Category get(int position){
 		return super.get(position);
 		
 	}
 	
-	public Macrocategory remove(int position){
+	public Category remove(int position){
 		super.remove(position);
 		return null;
 	}

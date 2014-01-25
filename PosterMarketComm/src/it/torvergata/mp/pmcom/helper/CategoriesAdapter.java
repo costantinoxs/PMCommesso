@@ -1,4 +1,4 @@
-package it.torvergata.mp.helper;
+package it.torvergata.mp.pmcom.helper;
 
 /**
  * This file is part of AdvancedListViewDemo.
@@ -24,13 +24,13 @@ package it.torvergata.mp.helper;
  */
 
 import it.torvergata.mp.GenericFunctions;
-import it.torvergata.mp.R;
-import it.torvergata.mp.R.id;
-import it.torvergata.mp.entity.ListMacrocategories;
-import it.torvergata.mp.entity.ListOrders;
-import it.torvergata.mp.entity.ListProduct;
-import it.torvergata.mp.entity.Macrocategory;
-import it.torvergata.mp.entity.Product;
+import it.torvergata.mp.pmcom.R;
+import it.torvergata.mp.pmcom.R.id;
+import it.torvergata.mp.pmcom.entity.Category;
+import it.torvergata.mp.pmcom.entity.ListCategories;
+import it.torvergata.mp.pmcom.entity.ListOrders;
+import it.torvergata.mp.pmcom.entity.ListProduct;
+import it.torvergata.mp.pmcom.entity.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,38 +46,38 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MacrocategoriesAdapter extends ArrayAdapter<Macrocategory> {
+public class CategoriesAdapter extends ArrayAdapter<Category> {
 
 	private LayoutInflater mInflater;
 	private Context context;
 	
 	
-	private ListMacrocategories listMacrocategories =new ListMacrocategories();
+	private ListCategories listCategories =new ListCategories();
 	private int mViewResourceId;
 	
-	public MacrocategoriesAdapter(Context ctx, int viewResourceId,ListMacrocategories mList) {
-		super(ctx, viewResourceId,mList);
+	public CategoriesAdapter(Context ctx, int viewResourceId,ListCategories cList) {
+		super(ctx, viewResourceId,cList);
 		context=ctx;
 		mInflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		listMacrocategories=mList;
+		listCategories=cList;
 		
 		mViewResourceId = viewResourceId;
 	}
 
 	@Override
 	public int getCount() {
-		return listMacrocategories.size();
+		return listCategories.size();
 	}
 
 	@Override
-	public Macrocategory getItem(int position) {
-		return listMacrocategories.get(position);
+	public Category getItem(int position) {
+		return listCategories.get(position);
 	}
 
 
 	@Override
 	public long getItemId(int position) {
-		return listMacrocategories.get(position).getId();
+		return listCategories.get(position).getId();
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class MacrocategoriesAdapter extends ArrayAdapter<Macrocategory> {
 		ImageView iv = (ImageView)convertView.findViewById(R.id.list_image);
 		TextView tvQuantitative = (TextView)convertView.findViewById(R.id.tvQuantitative);
 		TextView tvStateoOrder = (TextView)convertView.findViewById(R.id.tvStateOrder);
-		tvTitle.setText(listMacrocategories.get(position).getName());
+		tvTitle.setText(listCategories.get(position).getName());
 		
 		return convertView;
 	}

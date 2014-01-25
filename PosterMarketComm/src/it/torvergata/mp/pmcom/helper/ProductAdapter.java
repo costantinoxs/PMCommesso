@@ -1,4 +1,4 @@
-package it.torvergata.mp.helper;
+package it.torvergata.mp.pmcom.helper;
 
 /**
  * This file is part of AdvancedListViewDemo.
@@ -24,14 +24,10 @@ package it.torvergata.mp.helper;
  */
 
 import it.torvergata.mp.GenericFunctions;
-import it.torvergata.mp.R;
-import it.torvergata.mp.R.id;
-import it.torvergata.mp.entity.Category;
-import it.torvergata.mp.entity.ListCategories;
-import it.torvergata.mp.entity.ListOrders;
-import it.torvergata.mp.entity.ListProduct;
-import it.torvergata.mp.entity.Category;
-import it.torvergata.mp.entity.Product;
+import it.torvergata.mp.pmcom.R;
+import it.torvergata.mp.pmcom.R.id;
+import it.torvergata.mp.pmcom.entity.ListProduct;
+import it.torvergata.mp.pmcom.entity.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,40 +41,41 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-public class CategoriesAdapter extends ArrayAdapter<Category> {
+public class ProductAdapter extends ArrayAdapter<Product> {
 
 	private LayoutInflater mInflater;
 	private Context context;
 	
 	
-	private ListCategories listCategories =new ListCategories();
+	private ListProduct productList =new ListProduct();
 	private int mViewResourceId;
 	
-	public CategoriesAdapter(Context ctx, int viewResourceId,ListCategories cList) {
-		super(ctx, viewResourceId,cList);
+	public ProductAdapter(Context ctx, int viewResourceId,ListProduct pList) {
+		super(ctx, viewResourceId, pList);
 		context=ctx;
 		mInflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		listCategories=cList;
+		productList=pList;
 		
 		mViewResourceId = viewResourceId;
 	}
 
 	@Override
 	public int getCount() {
-		return listCategories.size();
+		return productList.size();
 	}
 
 	@Override
-	public Category getItem(int position) {
-		return listCategories.get(position);
+	public Product getItem(int position) {
+		return productList.get(position);
 	}
 
 
 	@Override
 	public long getItemId(int position) {
-		return listCategories.get(position).getId();
+		return Long.parseLong(productList.get(position).getId());
 	}
 
 	@Override
@@ -89,8 +86,24 @@ public class CategoriesAdapter extends ArrayAdapter<Category> {
 		TextView tvDescription = (TextView)convertView.findViewById(R.id.description);
 		ImageView iv = (ImageView)convertView.findViewById(R.id.list_image);
 		TextView tvQuantitative = (TextView)convertView.findViewById(R.id.tvQuantitative);
-		TextView tvStateoOrder = (TextView)convertView.findViewById(R.id.tvStateOrder);
-		tvTitle.setText(listCategories.get(position).getName());
+		TextView tvPrice = (TextView)convertView.findViewById(R.id.price);
+		
+		tvTitle.setText(productList.get(position).getNome());
+		tvDescription.setText(productList.get(position).getDescrizione());
+		tvQuantitative.setText("Quantità:"+" "+productList.get(position).getQuantita());
+		
+		String price = GenericFunctions.currencyStamp(productList.get(position).getPrezzoTotale());
+		
+		if(productList.get(position).isChecked()){
+			convertView.setBackgroundColor(R.drawable.gradient_back);
+		}
+		
+		tvPrice.setText(price+" "+"\u20ac"+" ");
+		
+		DrawableManager.fetchDrawableOnThread(productList.get(position), iv,context);
+		
+		//iv.setImageDrawable(drawab.fetchDrawable(Const.IMAGE_URL));
+		
 		
 		return convertView;
 	}

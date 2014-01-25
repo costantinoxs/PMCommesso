@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">ShopAppCom</string>
+    <string name="app_name">Poster Market Commesso</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="registrazione">Non sei registrato. Clicca qui!!!</string>
@@ -24,8 +24,8 @@
     <string name="tvOrders">Ordini:</string>
     <string name="tvMacrocategories">Reparto:</string>
     <string name="Loading">Accesso in corso...</string>
-    <string name="tDeleteProduct">Elimina</string>
-    <string name="tMessageDelete">Si desidera eliminare il prodotto selezionato?</string>
+    <string name="tDeleteProduct">Acquisisci</string>
+    <string name="tMessageDelete">Si desidera acquisire il prodotto selezionato?</string>
     <string name="tCancelDelete">Annulla</string>
     <string name="tTitleBoxDeleteProduct">Eliminazione prodotto</string>
     <string name="tMessageDeleteProd">Eliminazione </string>
@@ -71,5 +71,6 @@
     <string name="title_activity_list_product">ListProductActivity</string>
     <string name="title_activity_scan_product_acitivty">ScanProductAcitivty</string>
     <string name="title_activity_scan_single_product">ScanSingleProduct</string>
+    <string name="title_activity_product_detail">ProductDetailActivity</string>
 
 </resources>

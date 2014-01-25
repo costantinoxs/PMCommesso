@@ -1,4 +1,4 @@
-package it.torvergata.mp.crypto;
+package it.torvergata.mp.pmcom.crypto;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

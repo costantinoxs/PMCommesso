@@ -1,4 +1,4 @@
-package it.torvergata.mp.helper;
+package it.torvergata.mp.pmcom.helper;
 
 import it.torvergata.mp.Const;
 import it.torvergata.mp.GenericFunctions;

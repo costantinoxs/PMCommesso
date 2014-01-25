@@ -42,7 +42,7 @@
             android:layout_alignParentRight="true"
             android:gravity="right"
             android:text="price"
-          	android:textColor="#e02f2f"
+          	android:textColor="#ffffff"
             android:textSize="20dip"
             android:textStyle="bold" />
     </LinearLayout>

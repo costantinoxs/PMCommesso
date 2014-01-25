@@ -1,4 +1,4 @@
-package it.torvergata.mp.activity;
+package it.torvergata.mp.pmcom.activity;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -35,21 +35,21 @@ import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
 import it.torvergata.mp.Const;
 import it.torvergata.mp.GenericFunctions;
-import it.torvergata.mp.R;
-import it.torvergata.mp.R.id;
-import it.torvergata.mp.R.layout;
-
-import it.torvergata.mp.activity.MainActivity;
+import it.torvergata.mp.pmcom.R;
+import it.torvergata.mp.pmcom.R.id;
+import it.torvergata.mp.pmcom.R.layout;
 
 
-import it.torvergata.mp.activity.MainActivity.LoadData;
-import it.torvergata.mp.entity.ListProduct;
-import it.torvergata.mp.entity.Product;
-import it.torvergata.mp.helper.CameraPreview;
-import it.torvergata.mp.helper.Dialogs;
-import it.torvergata.mp.helper.DrawableManager;
-import it.torvergata.mp.helper.HttpConnection;
-import it.torvergata.mp.helper.ProductAdapter;
+
+import it.torvergata.mp.pmcom.activity.MainActivity;
+import it.torvergata.mp.pmcom.activity.MainActivity.LoadData;
+import it.torvergata.mp.pmcom.entity.ListProduct;
+import it.torvergata.mp.pmcom.entity.Product;
+import it.torvergata.mp.pmcom.helper.CameraPreview;
+import it.torvergata.mp.pmcom.helper.Dialogs;
+import it.torvergata.mp.pmcom.helper.DrawableManager;
+import it.torvergata.mp.pmcom.helper.HttpConnection;
+import it.torvergata.mp.pmcom.helper.ProductAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;

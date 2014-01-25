@@ -1,4 +1,4 @@
-package it.torvergata.mp.activity;
+package it.torvergata.mp.pmcom.activity;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -35,21 +35,21 @@ import net.sourceforge.zbar.Symbol;
 import net.sourceforge.zbar.SymbolSet;
 import it.torvergata.mp.Const;
 import it.torvergata.mp.GenericFunctions;
-import it.torvergata.mp.R;
-import it.torvergata.mp.R.id;
-import it.torvergata.mp.R.layout;
-
-import it.torvergata.mp.activity.MainActivity;
+import it.torvergata.mp.pmcom.R;
+import it.torvergata.mp.pmcom.R.id;
+import it.torvergata.mp.pmcom.R.layout;
 
 
-import it.torvergata.mp.activity.MainActivity.LoadData;
-import it.torvergata.mp.entity.ListProduct;
-import it.torvergata.mp.entity.Product;
-import it.torvergata.mp.helper.CameraPreview;
-import it.torvergata.mp.helper.Dialogs;
-import it.torvergata.mp.helper.DrawableManager;
-import it.torvergata.mp.helper.HttpConnection;
-import it.torvergata.mp.helper.ProductAdapter;
+
+import it.torvergata.mp.pmcom.activity.MainActivity;
+import it.torvergata.mp.pmcom.activity.MainActivity.LoadData;
+import it.torvergata.mp.pmcom.entity.ListProduct;
+import it.torvergata.mp.pmcom.entity.Product;
+import it.torvergata.mp.pmcom.helper.CameraPreview;
+import it.torvergata.mp.pmcom.helper.Dialogs;
+import it.torvergata.mp.pmcom.helper.DrawableManager;
+import it.torvergata.mp.pmcom.helper.HttpConnection;
+import it.torvergata.mp.pmcom.helper.ProductAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -102,6 +102,7 @@ public class ScanSingleProduct extends Activity {
 	private	TextView scanText,tvTitle,tvDescription,tvQuantitative,tvPrice;
 	private ImageView iv;
 	private Context ctx;
+	private int qnt;
 	
 	private Dialogs dialogs;
 
@@ -144,7 +145,7 @@ public class ScanSingleProduct extends Activity {
 		
 		
 		scanText = (TextView) findViewById(R.id.scanText);
-		
+		Button ContinueScanButton = (Button) findViewById(R.id.ContinueScanButton);
 		mRelativeLayoutLastProduct= (RelativeLayout) findViewById(R.id.rlProductDetails);
 		
 		tvTitle 		= (TextView)findViewById(R.id.title);
@@ -153,7 +154,17 @@ public class ScanSingleProduct extends Activity {
 		tvQuantitative 	= (TextView)findViewById(R.id.tvQuantitative);
 		tvPrice 		= (TextView)findViewById(R.id.price);
 		
-				
+		ContinueScanButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+            		
+                    scanText.setText(R.string.tScanning);
+                    mCamera.setPreviewCallback(previewCb);
+                    mCamera.startPreview();
+                    previewing = true;
+                    mCamera.autoFocus(autoFocusCB);
+                }
+            }
+        );
 		
 		//Handler per il messaggio di risposta del Server, proveniente dal Thread.
 		handler = new Handler() {
@@ -164,7 +175,10 @@ public class ScanSingleProduct extends Activity {
                	
             	if(res==Const.KO){
             		//Dialog KO
+            		AlertDialog dialogBoxKO = dialogs.GenericErrorDialog(ctx,"Codice Scansionato non trovato");
+            		dialogBoxKO.show();
                 }
+                
             	
                 else if(res==Const.TIMEOUT){
                 	AlertDialog dialogBox = dialogs.ConnectionTimeout(ctx);
@@ -172,14 +186,51 @@ public class ScanSingleProduct extends Activity {
                 }
                 else if(res==Const.KOLIST){
                 	//Dialog KOLIST
+                	AlertDialog dialogBoxKOLIST = dialogs.GenericErrorDialog(ctx,"L'ordine non contiene il prodotto selezionato");
+                	dialogBoxKOLIST.show();
+                }
+                else if(res==Const.JUSTCHECKED){
+                	//Dialog KOLIST
+                	AlertDialog alertDialog = new AlertDialog.Builder(ctx)
+            		.setTitle(R.string.tWarning)
+            		.setMessage("Prodotto già scansionato !")
+            		.setIcon(android.R.drawable.ic_dialog_alert)//.setIcon(R.drawable.img_delete)
+            		.setPositiveButton(R.string.tOk,
+            				new DialogInterface.OnClickListener() {
+            					public void onClick(DialogInterface dialog,
+            							int whichButton) {
+            						dialog.dismiss(); 
+            						Intent returnIntent = new Intent();
+            	                	returnIntent.putExtra("result", (Parcelable) productList);
+            	                	setResult(1,returnIntent);
+            	                	finish();
+            					}
+            				})
+            		.create();
+            		alertDialog.show();
                 }
                 else if(res==Const.OKMULTIPLE){
                 	//Dialog OKMULTIPLE
-                	Intent returnIntent = new Intent();
-                	Log.i("boolean4", ""+productList.get(0).isChecked());
-                	returnIntent.putExtra("result", (Parcelable) productList);
-                	setResult(1,returnIntent);
-                	finish();
+                	AlertDialog alertDialog = new AlertDialog.Builder(ctx)
+            		.setTitle(R.string.tWarning)
+            		.setMessage("Il codice scansionato ha quantità multipla all''interno dell'ordine: "+qnt+" Pz.")
+            		.setIcon(android.R.drawable.ic_dialog_alert)//.setIcon(R.drawable.img_delete)
+            		.setPositiveButton(R.string.tOk,
+            				new DialogInterface.OnClickListener() {
+            					public void onClick(DialogInterface dialog,
+            							int whichButton) {
+            						dialog.dismiss(); 
+            						Intent returnIntent = new Intent();
+            	                	Log.i("boolean4", ""+productList.get(0).isChecked());
+            	                	returnIntent.putExtra("result", (Parcelable) productList);
+            	                	setResult(1,returnIntent);
+            	                	finish();
+            					}
+            				})
+            		.create();
+            		alertDialog.show();
+                	
+                	
                 }
             	
                 else {
@@ -365,6 +416,8 @@ public class ScanSingleProduct extends Activity {
 					String disponibilita = object.getString("disponibilita");
 					String descrizione = object.getString("descrizione");
 					String fileImmagine = object.getString("file_immagine");
+					
+					
 	
 					Log.i("idProdotto: ", idProdotto);
 					Log.i("nome: ", nome);
@@ -385,6 +438,7 @@ public class ScanSingleProduct extends Activity {
 					tempProd.setDisponibilita(Integer.parseInt(disponibilita));
 					tempProd.setFileImmagine(fileImmagine);
 	
+					
 					if(productList.searchById(tempProd.getId())==null){
 						//Comunicazione al Thread principale del nome del prodotto
 						Message message = handler.obtainMessage(1, Const.KOLIST, 0);
@@ -395,20 +449,24 @@ public class ScanSingleProduct extends Activity {
 		                
 						// Si imposta a true la variabile booleana associata al prodotto
 						
-						
-						productList.searchByIdAndChecked(tempProd.getId());
-						
-						Log.i("boolean2", ""+productList.get(0).isChecked());
-		                
-						if((productList.searchById(tempProd.getId()).getQuantita()>1)){	
-							Log.i("boolean3", ""+productList.get(0).isChecked());
-			                
-							Message message = handler.obtainMessage(1, Const.OKMULTIPLE, 0);
+						int r=productList.searchByIdAndChecked(tempProd.getId());
+						if(r==1)
+						{
+							Message message = handler.obtainMessage(1, Const.JUSTCHECKED, 0);
 							handler.sendMessage(message);
-							
-						}else{
-							Message message = handler.obtainMessage(1, Const.OK, 0);
-							handler.sendMessage(message);
+						}else{	
+							Log.i("boolean2", ""+productList.get(0).isChecked());
+			                qnt=productList.searchById(tempProd.getId()).getQuantita();
+							if((qnt>1)){	
+								Log.i("boolean3", ""+productList.get(0).isChecked());
+				                
+								Message message = handler.obtainMessage(1, Const.OKMULTIPLE, 0);
+								handler.sendMessage(message);
+								
+							}else{
+								Message message = handler.obtainMessage(1, Const.OK, 0);
+								handler.sendMessage(message);
+							}
 						}
 					}
 				}

@@ -1,9 +1,9 @@
-package it.torvergata.mp.entity;
+package it.torvergata.mp.pmcom.entity;
 
 
 import it.torvergata.mp.GenericFunctions;
-import it.torvergata.mp.R;
-import it.torvergata.mp.crypto.CryptoSha256;
+import it.torvergata.mp.pmcom.R;
+import it.torvergata.mp.pmcom.crypto.CryptoSha256;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
